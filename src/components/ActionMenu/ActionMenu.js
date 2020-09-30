@@ -45,7 +45,7 @@ function ActionMenu() {
         <React.Fragment>
             <Menu>
                 <Menu.Item >
-                    <Input icon='search' placeholder='Search...' onChange={allowSearch && loadStocks} disabled={allowSearch} />
+                    <Input icon='search' placeholder='Search...' onChange={allowSearch && loadStocks} />
                 </Menu.Item>
             </Menu>
         </React.Fragment>

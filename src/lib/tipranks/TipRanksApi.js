@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function GetAutocomplete(name = 'M') {
+function GetAutocomplete(name = 'M') {
     return axios.get(`https://trautocomplete.azurewebsites.net/api/Autocomplete/GetAutocomplete?name=${name}`)
         .then(response => (
             {
