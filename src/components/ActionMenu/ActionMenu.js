@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDispatch, } from "react-redux";
+import { useDispatch, useSelector, } from "react-redux";
 import { Input, Menu, } from "semantic-ui-react";
 
 import { stocksError, stocksLoaded, stocksLoading } from "../../actions";
@@ -10,6 +10,8 @@ import TipRanksApi from "../../lib/tipranks/TipRanksApi";
 function ActionMenu() {
     const dispatch = useDispatch()
 
+    const loading = useSelector((state) => state.stocks.loading)
+
     const [allowSearch, setAllowSearch] = useState(true);
 
     useInterval(() => {
@@ -17,6 +19,11 @@ function ActionMenu() {
     }, allowSearch ? 1000 : null);
 
     function loadStocks(event) {
+        if (loading) {
+            setAllowSearch(false)
+            return
+        }
+
         dispatch(stocksError(false))
         dispatch(stocksLoading(true))
 
@@ -38,7 +45,7 @@ function ActionMenu() {
         <React.Fragment>
             <Menu>
                 <Menu.Item >
-                    <Input icon='search' placeholder='Search...' onChange={loadStocks} disabled={!allowSearch} />
+                    <Input icon='search' placeholder='Search...' onChange={allowSearch && loadStocks} disabled={allowSearch} />
                 </Menu.Item>
             </Menu>
         </React.Fragment>
